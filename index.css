@@ -1,0 +1,152 @@
+:root {
+    --bg-glass: rgba(20, 20, 25, 0.75);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --accent: #10b981; /* Modern green */
+    --accent-hover: #059669;
+    --blur: 16px;
+    --font-family: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-family);
+    overflow: hidden;
+    background-color: #0f0f13;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Hide default leaflet controls since we build custom ones */
+.leaflet-control-zoom {
+    display: none !important;
+}
+
+/* Custom UI Container */
+.controls-container {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    pointer-events: none; /* Let clicks pass through container */
+}
+
+.map-title {
+    background: var(--bg-glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border-glass);
+    padding: 12px 24px;
+    border-radius: 30px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    pointer-events: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.map-controls {
+    display: flex;
+    gap: 12px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border-glass);
+    padding: 8px;
+    border-radius: 24px;
+    pointer-events: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.center-btn, .layer-btn, .heatmap-btn {
+    width: auto;
+    padding: 0 20px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.center-btn span, .layer-btn span, .heatmap-btn span {
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.center-btn:hover, .layer-btn:hover, .heatmap-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: transparent;
+}
+
+/* Pulse animation for loading points (optional) */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 15, 19, 0.9);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-family: var(--font-family);
+    font-size: 18px;
+    font-weight: 500;
+    transition: opacity 0.5s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
