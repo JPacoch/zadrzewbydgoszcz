@@ -1,5 +1,5 @@
-const supabaseUrl = 'SUPABASE_URL';
-const supabaseKey = 'SUPABASE_ANON_KEY';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 const BYDGOSZCZ_CENTER = [53.1235, 18.0084];
